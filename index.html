@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serverso</title>
+  <meta name="description" content="Ecossistema digital integrador do Grupo Ser Educacional - UNINASSAU.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231E293B'/><circle cx='16' cy='16' r='9' fill='%233B82F6'/><circle cx='16' cy='16' r='5' fill='%2360A5FA'/></svg>">
+  
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM SERVERSO (GRUPO SER EDUCACIONAL / UNINASSAU)
+       Interface moderna SaaS, limpa, responsiva, idêntica ao portal em produção.
+       ========================================================================== */
+    :root {
+      --site-header-height: 64px;
+      --sidebar-width: 240px;
+      --sidebar-mini-width: 68px;
+
+      /* Paleta SERVERSO */
+      --bg-app: #F8FAFC;
+      --bg-surface: #FFFFFF;
+      --bg-surface-subtle: #F1F5F9;
+      --bg-surface-hover: #F8FAFC;
+      
+      --brand-blue: #0369A1;
+      --brand-blue-hover: #075985;
+      --brand-blue-light: #E0F2FE;
+      --brand-purple: #6366F1;
+      --brand-nassau: #002B66;
+      --brand-accent: #FFB800;
+
+      /* Tinta e Contraste */
+      --text-main: #0F172A;
+      --text-secondary: #475569;
+      --text-muted: #64748B;
+      --text-light: #94A3B8;
+
+      /* Linhas e Bordas */
+      --border-color: #E2E8F0;
+      --border-subtle: #F1F5F9;
+
+      /* Badges e Status */
+      --status-active-bg: #DCFCE7;
+      --status-active-text: #166534;
+      --status-active-dot: #22C55E;
+      --status-warning-bg: #FEF3C7;
+      --status-warning-text: #92400E;
+      --status-danger-bg: #FEE2E2;
+      --status-danger-text: #991B1B;
+
+      /* Sombras e Raios */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-pill: 9999px;
+
+      --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+      --shadow-card: 0 2px 8px 0 rgba(15, 23, 42, 0.05);
+      --shadow-hover: 0 8px 20px -4px rgba(15, 23, 42, 0.08);
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @supports (overflow: clip) {
+      html, body {
+        overflow-x: clip;
+      }
+    }
+
+    
+    /* ==========================================================================
+       BROWSER SURFACES THEMED FROM THE SERVERSO PALETTE
+       ========================================================================== */
+    ::selection {
+      background-color: #BAE6FD;
+      color: #002B66;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--brand-blue);
+      outline-offset: 2px;
+    }
+
+    input, textarea, select {
+      caret-color: var(--brand-blue);
+    }
+
+    a {
+      text-underline-offset: 3px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-app);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: var(--radius-pill);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .tabular {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Layout Geral */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ==========================================================================
+       SIDEBAR SERVERSO (Lateral Esquerda)
+       ========================================================================== */
+    .sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--bg-surface);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 1000;
+      transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s ease;
+    }
+
+    .sidebar-brand-box {
+      height: var(--site-header-height);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .serverso-logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #002B66 0%, #0369A1 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .serverso-logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: #002B66;
+    }
+    .serverso-logo-text span {
+      color: var(--brand-blue);
+    }
+
+    .sidebar-menu-list {
+      flex: 1;
+      padding: 1rem 0.75rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .menu-item:hover {
+      background-color: var(--bg-surface-subtle);
+      color: var(--text-main);
+    }
+    .menu-item.is-active {
+      background-color: #E0F2FE;
+      color: var(--brand-blue);
+      font-weight: 600;
+    }
+    .menu-item.is-active svg {
+      color: var(--brand-blue);
+    }
+
+    .menu-item-icon {
+      width: 19px;
+      height: 19px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .sidebar-user-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background-color: var(--bg-surface);
+    }
+
+    .user-avatar-circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       CONTEÚDO PRINCIPAL & HEADER (Topo)
+       ========================================================================== */
+    .main-content-wrap {
+      flex: 1;
+      margin-left: var(--sidebar-width);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      transition: margin-left 0.25s ease;
+    }
+
+    /* Header Superior */
+    .top-navbar {
+      height: var(--site-header-height);
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 500;
+    }
+
+    .top-nav-left {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex: 1;
+      max-width: 600px;
+    }
+
+    .btn-icon-square {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+    .btn-icon-square:hover {
+      background-color: var(--bg-surface-subtle);
+      color: var(--text-main);
+    }
+
+    .search-input-pill {
+      display: flex;
+      align-items: center;
+      background-color: #F1F5F9;
+      border: 1px solid transparent;
+      border-radius: var(--radius-pill);
+      padding: 0.45rem 1rem;
+      width: 100%;
+      gap: 0.6rem;
+      transition: all 0.2s ease;
+    }
+    .search-input-pill:focus-within {
+      background-color: #FFFFFF;
+      border-color: var(--brand-blue);
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08);
+    }
+    .search-input-pill input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.88rem;
+      width: 100%;
+      color: var(--text-main);
+    }
+    .search-shortcut-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: #E2E8F0;
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .top-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .btn-sofia-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #F1F5F9;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 0.35rem 0.9rem 0.35rem 0.45rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-sofia-header:hover {
+      background: #E2E8F0;
+      border-color: var(--brand-blue);
+    }
+
+    .sofia-mini-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #002B66, #0369A1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       CONTEÚDO DAS TELAS (VIEWS)
+       ========================================================================== */
+    .page-body-container {
+      padding: 1.75rem 2rem 5rem;
+      max-width: 1360px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .view-container {
+      display: none;
+    }
+    .view-container.is-active {
+      display: block;
+      animation: fadeInView 0.2s ease;
+    }
+
+    @keyframes fadeInView {
+      from { opacity: 0; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mensagem de Boas-vindas Dismissible */
+    .welcome-banner-alert {
+      background-color: var(--brand-blue-light);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+      color: var(--brand-blue);
+    }
+
+    /* Bloco de Saudação / Hero */
+    .hero-greeting-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .matriculado-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background-color: var(--status-active-bg);
+      color: var(--status-active-text);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: 0.4rem;
+    }
+    .matriculado-pill::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--status-active-dot);
+    }
+
+    .hero-name-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.35rem;
+    }
+
+    .hero-onboarding-tags {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+
+    .onboarding-tag {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 0.45rem 1rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .onboarding-tag:hover {
+      background: var(--bg-surface-subtle);
+      border-color: var(--brand-blue);
+      color: var(--brand-blue);
+    }
+
+    /* Card de Metadados do Curso */
+    .course-meta-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.75rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+      align-items: center;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-subtle);
+      margin-bottom: 2rem;
+    }
+
+    .meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .meta-col-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .meta-col-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Seção "Especialmente para você" */
+    .section-headline {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .promo-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .promo-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow-subtle);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .promo-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+      border-color: #CBD5E1;
+    }
+
+    .promo-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .promo-card p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Seção "Sua rotina acadêmica" */
+    .routine-quick-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .routine-btn {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+    .routine-btn:hover {
+      background: var(--bg-surface-subtle);
+      border-color: var(--brand-blue);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .routine-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brand-blue);
+    }
+
+    .routine-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Seção "Disciplinas do Semestre" (Grid fiel às 7 matérias reais) */
+    .disciplines-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .discipline-row-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      box-shadow: var(--shadow-subtle);
+      transition: all 0.15s ease;
+      flex-wrap: wrap;
+    }
+    .discipline-row-card:hover {
+      border-color: #CBD5E1;
+      box-shadow: var(--shadow-card);
+    }
+
+    .disc-col-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 280px;
+      flex: 1.5;
+    }
+
+    .disc-avatar-letter {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      color: var(--brand-blue);
+      font-weight: 800;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+
+    .disc-title-texts h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .disc-title-texts span {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .disc-col-scores {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      flex: 1.5;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .score-bullet {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    .btn-sala-virtual {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn-sala-virtual:hover {
+      background: #E2E8F0;
+      border-color: var(--brand-blue);
+      color: var(--brand-blue);
+    }
+
+    /* Seção de Desempenho */
+    .desempenho-empty-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-subtle);
+    }
+    .desempenho-empty-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+    .desempenho-empty-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .desempenho-metrics-pills {
+      display: inline-flex;
+      gap: 1.5rem;
+      background: var(--bg-surface-subtle);
+      padding: 0.6rem 1.5rem;
+      border-radius: var(--radius-pill);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       ASSISTENTE SOFIA (Drawer & Botão Flutuante)
+       ========================================================================== */
+    .sofia-float-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 0.45rem 1.25rem 0.45rem 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.2s ease;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+    .sofia-float-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.16);
+      border-color: var(--brand-blue);
+    }
+
+    .sofia-float-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #002B66, #0369A1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFF;
+      font-weight: 800;
+      font-size: 0.75rem;
+    }
+
+    /* Gaveta da Sofia */
+    .sofia-side-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 400px;
+      max-width: 100vw;
+      background: #FFFFFF;
+      box-shadow: -4px 0 24px rgba(15, 23, 42, 0.12);
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .sofia-side-drawer.is-open {
+      transform: translateX(0);
+    }
+
+    .sofia-drawer-top {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F8FAFC;
+    }
+
+    .sofia-chat-scroll {
+      flex: 1;
+      padding: 1.25rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: #F8FAFC;
+    }
+
+    .bubble-bot {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      align-self: flex-start;
+      max-width: 85%;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .bubble-user {
+      background: var(--brand-blue);
+      color: #FFFFFF;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      align-self: flex-end;
+      max-width: 85%;
+    }
+
+    .sofia-drawer-footer {
+      padding: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 0.5rem;
+      background: #FFFFFF;
+    }
+
+    .sofia-drawer-footer input {
+      flex: 1;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      outline: none;
+    }
+    .sofia-drawer-footer input:focus {
+      border-color: var(--brand-blue);
+    }
+
+    /* Responsividade */
+    @media (max-width: 1024px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+      .sidebar.is-open-mobile {
+        transform: translateX(0);
+      }
+      .main-content-wrap {
+        margin-left: 0;
+      }
+      .course-meta-card {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .btn-icon-square {
+        min-width: 44px;
+        min-height: 44px;
+      }
+      .btn-sala-virtual {
+        min-height: 40px;
+        padding: 0.6rem 1.15rem;
+      }
+      .top-navbar {
+        padding: 0 1rem;
+      }
+      .page-body-container {
+        padding: 1rem;
+      }
+      .course-meta-card {
+        grid-template-columns: 1fr;
+      }
+      .discipline-row-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .disc-col-scores {
+        justify-content: flex-start;
+      }
+      .sofia-side-drawer {
+        width: 100vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- ========================================================================
+         SIDEBAR SERVERSO OFICIAL
+         ======================================================================== -->
+    <aside class="sidebar" id="app-sidebar" aria-label="Navegação Lateral">
+      <a href="#home" class="sidebar-brand-box" onclick="switchNav('home')">
+        <div class="serverso-logo-icon">S</div>
+        <span class="serverso-logo-text">SERVER<span>SO</span></span>
+      </a>
+
+      <nav class="sidebar-menu-list">
+        <button class="menu-item is-active" id="btn-nav-home" onclick="switchNav('home')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span>Início</span>
+        </button>
+
+        <button class="menu-item" id="btn-nav-curso" onclick="switchNav('curso')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10"/><path d="M6 10h10"/></svg>
+          <span>Meu curso</span>
+        </button>
+
+        <button class="menu-item" id="btn-nav-servicos" onclick="switchNav('servicos')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>Serviços</span>
+        </button>
+
+        <button class="menu-item" id="btn-nav-financeiro" onclick="switchNav('financeiro')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+          <span>Carteira digital</span>
+        </button>
+
+        <button class="menu-item" onclick="alert('Biblioteca Digital Ser Educacional aberta em nova aba.')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <span>Biblioteca</span>
+        </button>
+
+        <button class="menu-item" onclick="alert('Vagas Peixe 30: Plataforma de trabalhabilidade discente.')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <span>Vagas (Peixe 30)</span>
+        </button>
+
+        <button class="menu-item" onclick="alert('B-Uni: Benefícios e convênios exclusivos para alunos.')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+          <span>B-Uni</span>
+        </button>
+
+        <button class="menu-item" onclick="alert('GoKursos: Cursos livres com certificação automática.')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>GoKursos</span>
+        </button>
+
+        <button class="menu-item" onclick="toggleSofia()">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Sofia</span>
+        </button>
+
+        <button class="menu-item" id="btn-nav-dados" onclick="switchNav('dados')">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span>Meus dados</span>
+        </button>
+
+        <div style="height: 1px; background: var(--border-color); margin: 0.5rem 0;"></div>
+
+        <a href="dossier_requisitos.html" class="menu-item" target="_blank">
+          <svg class="menu-item-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Dossiê da Atividade</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-user-footer">
+        <div class="user-avatar-circle">LF</div>
+        <div style="display: flex; flex-direction: column; line-height: 1.2;">
+          <strong style="font-size: 0.85rem;">Lucas Freitas</strong>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Matrícula: 01548922</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========================================================================
+         MAIN CONTENT AREA (Direita)
+         ======================================================================== -->
+    <div class="main-content-wrap">
+      
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="top-nav-left">
+          <button class="btn-icon-square" onclick="toggleSidebarMenu()" aria-label="Abrir menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+          </button>
+
+          <div class="search-input-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" y2="16.65"/></svg>
+            <input type="text" placeholder="Pesquisar..." id="global-search-input">
+            <span class="search-shortcut-badge">⌘ K</span>
+          </div>
+        </div>
+
+        <div class="top-nav-right">
+          <button class="btn-icon-square" onclick="alert('Notificações: AV1 de Requisitos lançada (10.0).')" aria-label="Notificações">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          </button>
+
+          <button class="btn-sofia-header" onclick="toggleSofia()">
+            <div class="sofia-mini-avatar">S</div>
+            <span>Fale com a Sofia</span>
+          </button>
+
+          <div class="user-avatar-circle" style="cursor:pointer;" onclick="switchNav('dados')">LF</div>
+        </div>
+      </header>
+
+      <!-- Corpo das Páginas -->
+      <main class="page-body-container" id="main-portal-view">
+
+        <!-- ====================================================================
+             VIEW 1: HOME (Dashboard idêntico ao SERVERSO real)
+             ==================================================================== -->
+        <section class="view-container is-active" id="view-home">
+          
+          <!-- Banner de Boas-vindas Dismissible -->
+          <div class="welcome-banner-alert" id="welcome-banner">
+            <span>🎉 <strong>Bem-vindo(a) ao SERVERSO!</strong> Seu novo portal integrado de aprendizagem e serviços acadêmicos.</span>
+            <button onclick="document.getElementById('welcome-banner').remove()" aria-label="Fechar aviso" style="background:none; border:none; cursor:pointer; color:var(--brand-blue); font-size:1rem; font-weight:700;">×</button>
+          </div>
+
+          <!-- Saudação e Onboarding -->
+          <div class="hero-greeting-block">
+            <div class="matriculado-pill">Matriculado</div>
+            <h1 class="hero-name-title">Olá, Lucas ! 👋</h1>
+            <p style="color:var(--text-secondary); font-size:0.88rem;">Bem-vindo(a) ao SERVERSO.</p>
+
+            <div class="hero-onboarding-tags">
+              <span class="onboarding-tag">🎯 Acompanhar disciplinas e prazos</span>
+              <span class="onboarding-tag">💼 Quero conseguir um estágio ou emprego</span>
+              <span class="onboarding-tag">⚡ Resolver tudo em um só lugar</span>
+              <button class="onboarding-tag" style="background:#F1F5F9; border-color:#E2E8F0;" onclick="alert('Editar preferências de onboarding')">✏️ Editar opções</button>
+            </div>
+          </div>
+
+          <!-- Card de Metadados do Curso -->
+          <div class="course-meta-card">
+            <div class="meta-col">
+              <span class="meta-col-label">Curso</span>
+              <span class="meta-col-value" style="color:var(--brand-blue); cursor:pointer;">Análise e Desenvolvimento de Sistemas</span>
+            </div>
+
+            <div class="meta-col">
+              <span class="meta-col-label">Semestre</span>
+              <span class="meta-col-value tabular">2026/2º</span>
+            </div>
+
+            <div class="meta-col">
+              <span class="meta-col-label">Período</span>
+              <span class="meta-col-value">2º Período</span>
+            </div>
+
+            <div class="meta-col">
+              <span class="meta-col-label">Turno</span>
+              <span class="meta-col-value">Noite</span>
+            </div>
+
+            <div class="meta-col">
+              <span class="meta-col-label">Progresso do Curso</span>
+              <div style="display:flex; align-items:center; gap:0.75rem; margin-top:0.25rem;">
+                <div style="flex:1; height:6px; background:#E2E8F0; border-radius:99px; overflow:hidden;">
+                  <div style="width:0%; height:100%; background:var(--brand-blue);"></div>
+                </div>
+                <span class="meta-col-value tabular" style="font-size:0.85rem;">0 %</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Especialmente para você -->
+          <div class="section-headline">
+            <h2>Especialmente para você</h2>
+          </div>
+
+          <div class="promo-cards-grid">
+            <div class="promo-card" onclick="alert('Avisos de avaliações e datas acadêmicas.')">
+              <div>
+                <h3>Fique por dentro das suas aulas!</h3>
+                <p>Não perca os prazos das suas próximas avaliações importantes.</p>
+              </div>
+              <span style="font-size:0.75rem; color:var(--brand-blue); font-weight:700; margin-top:1rem;">Ver prazos →</span>
+            </div>
+
+            <div class="promo-card" onclick="alert('Vagas e estágios abertos para ADS.')">
+              <div>
+                <h3>Novas vagas para você!</h3>
+                <p>Sua próxima oportunidade profissional pode estar aqui no Peixe 30.</p>
+              </div>
+              <span style="font-size:0.75rem; color:var(--brand-blue); font-weight:700; margin-top:1rem;">Explorar vagas →</span>
+            </div>
+
+            <div class="promo-card" onclick="switchNav('servicos')">
+              <div>
+                <h3>Emita documentos acadêmicos</h3>
+                <p>Agora, você pode emitir declarações e históricos diretamente com a SofIA!</p>
+              </div>
+              <span style="font-size:0.75rem; color:var(--brand-blue); font-weight:700; margin-top:1rem;">Emitir agora →</span>
+            </div>
+          </div>
+
+          <!-- Sua rotina acadêmica -->
+          <div class="section-headline">
+            <h2>Sua rotina acadêmica</h2>
+          </div>
+
+          <div class="routine-quick-grid">
+            <button class="routine-btn" onclick="switchNav('financeiro')">
+              <div class="routine-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              </div>
+              <span class="routine-label">Financeiro</span>
+            </button>
+
+            <button class="routine-btn" onclick="alert('Módulo de Estágios e Trabalhabilidade')">
+              <div class="routine-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+              </div>
+              <span class="routine-label">Estágios</span>
+            </button>
+
+            <button class="routine-btn" onclick="switchNav('servicos')">
+              <div class="routine-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <span class="routine-label">Serviços</span>
+            </button>
+
+            <button class="routine-btn" onclick="switchNav('curso')">
+              <div class="routine-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+              </div>
+              <span class="routine-label">Meu Curso</span>
+            </button>
+
+            <button class="routine-btn" onclick="switchNav('curso')">
+              <div class="routine-icon-circle">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/></svg>
+              </div>
+              <span class="routine-label">Avaliações</span>
+            </button>
+          </div>
+
+          <!-- Disciplinas do Semestre (As 7 disciplinas reais do aluno Lucas) -->
+          <div class="section-headline">
+            <h2>Disciplinas do Semestre</h2>
+            <button class="btn-sala-virtual" onclick="switchNav('curso')">Ver todas as disciplinas (7)</button>
+          </div>
+
+          <div class="disciplines-list-container">
+            
+            <!-- Matéria 1: Banco de Dados -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">B</div>
+                <div class="disc-title-texts">
+                  <h3>Banco de Dados</h3>
+                  <span>Allan Vilar de Carvalho</span>
+                </div>
+              </div>
+              <div class="disc-col-scores">
+                <span>AV1: <strong class="tabular">6.9</strong></span>
+                <span class="score-bullet">•</span>
+                <span>AV2: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>MÉDIA: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span style="color:var(--status-warning-text); font-weight:700;">FALTAS: 10 / 15</span>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" onclick="alert('Redirecionando para a Sala Virtual no Microsoft Teams...')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect width="15" height="14" x="1" y="5" rx="2"/></svg>
+                  <span>Sala Virtual</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Matéria 2: Front-end Frameworks -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">F</div>
+                <div class="disc-title-texts">
+                  <h3>Front-end Frameworks</h3>
+                  <span>Allan Vilar de Carvalho</span>
+                </div>
+              </div>
+              <div class="disc-col-scores">
+                <span>AV1: <strong class="tabular">8.1</strong></span>
+                <span class="score-bullet">•</span>
+                <span>AV2: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>MÉDIA: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>FALTAS: 3 / 15</span>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" onclick="alert('Redirecionando para a Sala Virtual no Microsoft Teams...')">
+                  <span>Sala Virtual</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Matéria 3: Governança de Ti e Compliance -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">G</div>
+                <div class="disc-title-texts">
+                  <h3>Governança de Ti e Compliance</h3>
+                  <span>Professor não informado</span>
+                </div>
+              </div>
+              <div class="disc-col-scores">
+                <span>AV1: <strong class="tabular">2.9</strong></span>
+                <span class="score-bullet">•</span>
+                <span>AV2: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>MÉDIA: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>FALTAS: -</span>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" onclick="alert('Redirecionando para a Sala Virtual no Microsoft Teams...')">
+                  <span>Sala Virtual</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Matéria 4: Coding -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">C</div>
+                <div class="disc-title-texts">
+                  <h3>Coding</h3>
+                  <span>Daniel Marques Targino Guimaraes</span>
+                </div>
+              </div>
+              <div class="disc-col-scores">
+                <span>AV1: <strong class="tabular">7.3</strong></span>
+                <span class="score-bullet">•</span>
+                <span>AV2: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>MÉDIA: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span style="color:var(--status-active-text); font-weight:700;">FALTAS: 0 / 25</span>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" onclick="alert('Redirecionando para a Sala Virtual no Microsoft Teams...')">
+                  <span>Sala Virtual</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Matéria 5: Engenharia de Requisitos (Destaque Nota 10) -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter" style="background:var(--brand-blue-light); color:var(--brand-blue);">E</div>
+                <div class="disc-title-texts">
+                  <h3>Engenharia de Requisitos, Teste e Qualidade de Software</h3>
+                  <span>Ana Paula de Souza do o Lopes</span>
+                </div>
+              </div>
+              <div class="disc-col-scores">
+                <span style="color:var(--brand-blue); font-weight:800;">AV1: 10.0</span>
+                <span class="score-bullet">•</span>
+                <span>AV2: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>MÉDIA: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span style="color:var(--status-active-text); font-weight:700;">FALTAS: 0 / 15</span>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" style="background:#002B66; color:#FFF; border-color:#002B66;" onclick="alert('Abrindo Sala Virtual de Engenharia de Requisitos...')">
+                  <span>Sala Virtual</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Matéria 6: Desenvolvimento de Aplicações para Internet -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">D</div>
+                <div class="disc-title-texts">
+                  <h3>Desenvolvimento de Aplicações para Internet</h3>
+                  <span>Daniel Cordeiro da Costa</span>
+                </div>
+              </div>
+              <div class="disc-col-scores">
+                <span>AV1: <strong class="tabular">6.5</strong></span>
+                <span class="score-bullet">•</span>
+                <span>AV2: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>MÉDIA: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>FALTAS: 6 / 15</span>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" onclick="alert('Redirecionando para a Sala Virtual no Microsoft Teams...')">
+                  <span>Sala Virtual</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Matéria 7: Atividades Práticas Interdisciplinares de Extensão I -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">A</div>
+                <div class="disc-title-texts">
+                  <h3>Atividades Práticas Interdisciplinares de Extensão I</h3>
+                  <span>Daniel Cordeiro da Costa</span>
+                </div>
+              </div>
+              <div class="disc-col-scores">
+                <span>AV1: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>AV2: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>MÉDIA: <strong class="tabular">-</strong></span>
+                <span class="score-bullet">•</span>
+                <span>FALTAS: 6 / 25</span>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" onclick="alert('Acessar atividades de extensão...')">
+                  <span>Acessar</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Seção Desempenho -->
+          <div class="section-headline">
+            <h2>Desempenho</h2>
+          </div>
+
+          <div class="desempenho-empty-card">
+            <h3>Dados insuficientes para o gráfico</h3>
+            <p>O gráfico de evolução será exibido assim que as médias semestrais forem consolidadas pela coordenação.</p>
+            <div class="desempenho-metrics-pills">
+              <span>CR Global: <strong class="tabular">0.0</strong></span>
+              <span>•</span>
+              <span>Média Global: <strong class="tabular">0.0</strong></span>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ====================================================================
+             VIEW 2: MEU CURSO
+             ==================================================================== -->
+        <section class="view-container" id="view-curso">
+          <div class="section-headline">
+            <div>
+              <h2>Meu curso</h2>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Tecnologia em Análise e Desenvolvimento de Sistemas • 2026/2º</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:0.5rem; border-bottom:1px solid var(--border-color); margin-bottom:1.5rem;">
+            <button class="onboarding-tag" style="border-radius:0; border:none; border-bottom:2px solid var(--brand-blue); color:var(--brand-blue); font-weight:700;">Minhas Disciplinas</button>
+            <button class="onboarding-tag" style="border-radius:0; border:none;" onclick="alert('Quadro de horários semanal')">Quadro de Horários</button>
+            <button class="onboarding-tag" style="border-radius:0; border:none;" onclick="alert('Matriz curricular do curso')">Sobre o curso</button>
+          </div>
+
+          <div class="disciplines-list-container">
+            <!-- Repetição das disciplinas com links detalhados -->
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">E</div>
+                <div class="disc-title-texts">
+                  <h3>Engenharia de Requisitos, Teste e Qualidade de Software</h3>
+                  <span>Ana Paula de Souza do o Lopes • Horário: Qui 17:40</span>
+                </div>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" style="margin-right:0.5rem;" onclick="alert('Download do Plano de Ensino da disciplina')">Plano de aula</button>
+                <button class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF;" onclick="alert('Acessar Sala Virtual')">Acessar Sala</button>
+              </div>
+            </div>
+
+            <div class="discipline-row-card">
+              <div class="disc-col-title">
+                <div class="disc-avatar-letter">B</div>
+                <div class="disc-title-texts">
+                  <h3>Banco de Dados</h3>
+                  <span>Allan Vilar de Carvalho • Horário: Qui 20:10</span>
+                </div>
+              </div>
+              <div>
+                <button class="btn-sala-virtual" style="margin-right:0.5rem;" onclick="alert('Plano de aula')">Plano de aula</button>
+                <button class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF;" onclick="alert('Acessar Sala Virtual')">Acessar Sala</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 3: SERVIÇOS
+             ==================================================================== -->
+        <section class="view-container" id="view-servicos">
+          <div class="section-headline">
+            <div>
+              <h2>Serviços</h2>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Central de solicitações e acompanhamento de processos acadêmicos</p>
+            </div>
+          </div>
+
+          <!-- Filtros de Serviços -->
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+            <button class="onboarding-tag" style="background:var(--brand-blue); color:#FFF; border-color:var(--brand-blue);">Todos</button>
+            <button class="onboarding-tag">Acadêmico</button>
+            <button class="onboarding-tag">Financeiro</button>
+            <button class="onboarding-tag">Documentos</button>
+            <button class="onboarding-tag">Estágio</button>
+            <button class="onboarding-tag">Outros</button>
+          </div>
+
+          <!-- Lista de 14 Serviços Oficiais do SERVERSO -->
+          <div class="disciplines-list-container">
+            <div class="discipline-row-card">
+              <div>
+                <h3 style="font-size:1rem; font-weight:700;">Meus Chamados</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Acompanhe o andamento das suas solicitações abertas</span>
+              </div>
+              <button class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF;" onclick="alert('Nenhum chamado pendente no momento.')">Acessar</button>
+            </div>
+
+            <div class="discipline-row-card">
+              <div>
+                <h3 style="font-size:1rem; font-weight:700;">Declarações e Históricos</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Emissão imediata com autenticação digital por QR Code</span>
+              </div>
+              <button class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF;" onclick="alert('Declaração de Matrícula gerada com sucesso!')">Solicitar</button>
+            </div>
+
+            <div class="discipline-row-card">
+              <div>
+                <h3 style="font-size:1rem; font-weight:700;">Segunda Chamada</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Requerimento de avaliação de segunda chamada para ausências justificadas</span>
+              </div>
+              <button class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF;" onclick="alert('Formulário de 2ª Chamada: Selecione a disciplina desejada.')">Solicitar</button>
+            </div>
+
+            <div class="discipline-row-card">
+              <div>
+                <h3 style="font-size:1rem; font-weight:700;">Edição de Matrícula</h3>
+                <span style="font-size:0.75rem; color:var(--text-muted);">Inclusão, exclusão ou alteração de matérias no semestre</span>
+              </div>
+              <button class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF;" onclick="alert('Edição de Matrícula em período regular.')">Solicitar</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 4: FINANCEIRO (CARTEIRA DIGITAL)
+             ==================================================================== -->
+        <section class="view-container" id="view-financeiro">
+          <div class="section-headline">
+            <div>
+              <h2>Financeiro</h2>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Veja seus pagamentos pendentes e o histórico de títulos quitados.</p>
+            </div>
+          </div>
+
+          <!-- Banner Oficial de Regra de Negócio do SERVERSO -->
+          <div style="background:var(--status-warning-bg); border:1px solid var(--border-color); padding:1rem 1.25rem; border-radius:var(--radius-sm); margin-bottom:1.5rem; font-size:0.88rem; color:var(--status-warning-text);">
+            💡 <strong>Pague até o dia 05</strong> para ter o desconto de antecipação (Vide condições e datas de pagamento no anexo I do seu contrato e/ou regulamento de campanha).
+          </div>
+
+          <div style="background:#FFFFFF; border:1px solid var(--border-color); border-radius:var(--radius-md); padding:1rem; overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
+              <thead>
+                <tr style="background:#F8FAFC; text-align:left; border-bottom:1px solid var(--border-color); color:var(--text-muted); font-size:0.75rem; text-transform:uppercase;">
+                  <th style="padding:0.85rem 1.25rem;">Serviço</th>
+                  <th style="padding:0.85rem 1.25rem;">Valor</th>
+                  <th style="padding:0.85rem 1.25rem;">Vencimento</th>
+                  <th style="padding:0.85rem 1.25rem;">Situação</th>
+                  <th style="padding:0.85rem 1.25rem; text-align:right;">Ação</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom:1px solid var(--border-color);">
+                  <td style="padding:1rem 1.25rem; font-weight:600;">Mensalidade - Novembro / 2026</td>
+                  <td style="padding:1rem 1.25rem; font-weight:700; color:var(--brand-blue);">R$ 499,00</td>
+                  <td style="padding:1rem 1.25rem;">05/11/2026</td>
+                  <td style="padding:1rem 1.25rem;"><span style="background:#FEF3C7; color:#92400E; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.75rem; font-weight:700;">Em Aberto</span></td>
+                  <td style="padding:1rem 1.25rem; text-align:right;">
+                    <button class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF; border-color:var(--brand-blue);" onclick="alert('Chave Pix copia-e-cola gerada com sucesso!')">Pagar Pix</button>
+                  </td>
+                </tr>
+
+                <tr style="border-bottom:1px solid var(--border-color);">
+                  <td style="padding:1rem 1.25rem; font-weight:600;">Mensalidade - Outubro / 2026</td>
+                  <td style="padding:1rem 1.25rem;">R$ 499,00</td>
+                  <td style="padding:1rem 1.25rem;">05/10/2026</td>
+                  <td style="padding:1rem 1.25rem;"><span style="background:#DCFCE7; color:#166534; padding:0.2rem 0.6rem; border-radius:99px; font-size:0.75rem; font-weight:700;">Quitado</span></td>
+                  <td style="padding:1rem 1.25rem; text-align:right;">
+                    <button class="btn-sala-virtual" onclick="alert('Exibindo recibo oficial de pagamento.')">Recibo</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ====================================================================
+             VIEW 5: MEUS DADOS
+             ==================================================================== -->
+        <section class="view-container" id="view-dados">
+          <div class="section-headline">
+            <div>
+              <h2>Lucas Freitas</h2>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Mantenha seus dados sempre atualizados para uma melhor experiência.</p>
+            </div>
+          </div>
+
+          <div style="background:#FFF; border:1px solid var(--border-color); border-radius:12px; padding:1.5rem; max-width:600px;">
+            <div style="display:flex; align-items:center; gap:1.25rem; margin-bottom:1.5rem;">
+              <div class="user-avatar-circle" style="width:64px; height:64px; font-size:1.25rem;">LF</div>
+              <div>
+                <h3 style="font-size:1.25rem; font-weight:700;">Lucas Freitas</h3>
+                <span style="font-size:0.88rem; color:var(--text-muted);">lucas.01548922@uninassau.edu.br</span>
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; font-size:0.88rem;">
+              <div><strong>Matrícula:</strong> <span class="tabular">01548922</span></div>
+              <div><strong>Status:</strong> Matriculado</div>
+              <div><strong>Curso:</strong> TADS (Noturno)</div>
+              <div><strong>Campus:</strong> Recife - Graças</div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       ASSISTENTE SOFIA FLUTUANTE & DRAWER CONVERSACIONAL
+       ======================================================================== -->
+  <button class="sofia-float-btn" onclick="toggleSofia()" aria-label="Abrir assistente Sofia">
+    <div class="sofia-float-avatar">S</div>
+    <span>Sofia</span>
+    <span style="width:8px; height:8px; border-radius:50%; background:var(--status-active-text);"></span>
+  </button>
+
+  <aside class="sofia-side-drawer" id="sofia-drawer" aria-label="Chat Sofia">
+    <div class="sofia-drawer-top">
+      <div style="display:flex; align-items:center; gap:0.65rem;">
+        <div class="sofia-float-avatar">S</div>
+        <div>
+          <h4 style="font-size:1rem; font-weight:700;">Sofia</h4>
+          <span style="font-size:0.75rem; color:var(--status-active-text); font-weight:600;">Online agora</span>
+        </div>
+      </div>
+      <button onclick="toggleSofia()" style="background:none; border:none; cursor:pointer; font-size:1.25rem;">×</button>
+    </div>
+
+    <div class="sofia-chat-scroll" id="sofia-chat-feed">
+      <div class="bubble-bot">
+        Olá, Lucas ! 👋 Como posso te ajudar hoje no SERVERSO?
+      </div>
+    </div>
+
+    <form class="sofia-drawer-footer" onsubmit="sendSofiaMessage(event)">
+      <input type="text" id="sofia-msg-input" placeholder="Digite sua mensagem...">
+      <button type="submit" class="btn-sala-virtual" style="background:var(--brand-blue); color:#FFF;">Enviar</button>
+    </form>
+  </aside>
+
+  <!-- ========================================================================
+       JAVASCRIPT: ROTEAMENTO, DRAWER E INTERAÇÕES
+       ======================================================================== -->
+  <script>
+    function switchNav(viewKey) {
+      document.querySelectorAll('.view-container').forEach(el => el.classList.remove('is-active'));
+      document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('is-active'));
+
+      const target = document.getElementById('view-' + viewKey);
+      if (target) {
+        target.classList.add('is-active');
+      }
+
+      const btn = document.getElementById('btn-nav-' + viewKey);
+      if (btn) {
+        btn.classList.add('is-active');
+      }
+
+      document.getElementById('app-sidebar').classList.remove('is-open-mobile');
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    function toggleSidebarMenu() {
+      document.getElementById('app-sidebar').classList.toggle('is-open-mobile');
+    }
+
+    function toggleSofia() {
+      const drawer = document.getElementById('sofia-drawer');
+      drawer.classList.toggle('is-open');
+      if (drawer.classList.contains('is-open')) {
+        document.getElementById('sofia-msg-input').focus();
+      }
+    }
+
+    function sendSofiaMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('sofia-msg-input');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const feed = document.getElementById('sofia-chat-feed');
+      
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bubble-user';
+      userBubble.innerText = text;
+      feed.appendChild(userBubble);
+      input.value = '';
+
+      setTimeout(() => {
+        const botBubble = document.createElement('div');
+        botBubble.className = 'bubble-bot';
+        if (text.toLowerCase().includes('nota') || text.toLowerCase().includes('av1')) {
+          botBubble.innerText = 'Sua nota de AV1 em Engenharia de Requisitos foi 10.0! Em Banco de Dados foi 6.9 e em Front-end Frameworks 8.1.';
+        } else if (text.toLowerCase().includes('segunda chamada') || text.toLowerCase().includes('chamada')) {
+          botBubble.innerText = 'Você pode solicitar a Segunda Chamada na aba Serviços. É necessário anexar justificativa legal ou atestado.';
+        } else if (text.toLowerCase().includes('desconto') || text.toLowerCase().includes('dia 05')) {
+          botBubble.innerText = 'O desconto de pontualidade contratual é concedido para pagamentos até o dia 05 na aba Financeiro.';
+        } else {
+          botBubble.innerText = 'Entendido, Lucas! Você pode acessar essa opção diretamente pelo menu lateral do SERVERSO.';
+        }
+        feed.appendChild(botBubble);
+        feed.scrollTop = feed.scrollHeight;
+      }, 400);
+    }
+
+    // Keyboard shortcuts & outside click handling
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const drawer = document.getElementById('sofia-drawer');
+        if (drawer && drawer.classList.contains('is-open')) {
+          drawer.classList.remove('is-open');
+        }
+        const sidebar = document.getElementById('app-sidebar');
+        if (sidebar && sidebar.classList.contains('is-open-mobile')) {
+          sidebar.classList.remove('is-open-mobile');
+        }
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        const searchInput = document.getElementById('global-search-input');
+        if (searchInput) {
+          searchInput.focus();
+        }
+      }
+    });
+
+    // Close Sofia when clicking outside on mobile or desktop backdrop
+    document.addEventListener('click', function(e) {
+      const drawer = document.getElementById('sofia-drawer');
+      const floatBtn = document.getElementById('sofia-float-btn');
+      const headerBtn = document.querySelector('.btn-sofia-header');
+      if (drawer && drawer.classList.contains('is-open')) {
+        if (!drawer.contains(e.target) && !floatBtn.contains(e.target) && (!headerBtn || !headerBtn.contains(e.target))) {
+          drawer.classList.remove('is-open');
+        }
+      }
+    });
+  </script>
+</body>
+</html>
